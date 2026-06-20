@@ -6,6 +6,7 @@ import cors from "cors";
 import connectDB from "./config/dbConnection.js";
 import authRoute from "./routes/authRoute.js";
 import eventRoute from "./routes/eventRoute.js";
+import bookingRoute from "./routes/bookingRoute.js";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoute);
 app.use("/api/events", eventRoute);
+app.use("/api/bookings", bookingRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

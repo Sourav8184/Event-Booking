@@ -96,7 +96,44 @@ const sendOTPEmail = async (userEmail, otp, type) => {
   }
 };
 
+export const sendBookingCancellationEmail = async (email, name, eventTitle) => {
+  try {
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Booking Cancelled",
+      html: `
+        <div style="font-family: Arial, sans-serif;">
+          <h2>Booking Cancelled</h2>
+
+          <p>Hello <strong>${name}</strong>,</p>
+
+          <p>
+            Your booking for the event
+            <strong>${eventTitle}</strong>
+            has been cancelled successfully.
+          </p>
+
+          <p>
+            If this cancellation was not intended, you may book the event again
+            if seats are available.
+          </p>
+
+          <br />
+
+          <p>Thank you,</p>
+          <p><strong>Event Booking Team</strong></p>
+        </div>
+      `,
+    });
+  } catch (error) {
+    console.error("Cancellation Email Error:", error);
+    throw error;
+  }
+};
+
 export default {
   sendBookingEmail,
   sendOTPEmail,
+  sendBookingCancellationEmail,
 };
